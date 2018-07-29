@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 import sys
+from decouple import config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -75,7 +76,16 @@ WSGI_APPLICATION = 'raveit.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'acadlytics.sqlite3',
+        'USER': '',
+        'PASSWORD': '',
+    }
+}
 
+import dj_database_url
 DATABASES = {
     'default': dj_database_url.config(
         default=config('DATABASE_URL')
