@@ -1,3 +1,8 @@
+[[source]] # Here goes your package sources (where you are downloading your packages from).
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
 [requires]
 python_version = '3.6'
 
@@ -6,8 +11,8 @@ dj-database-url = "0.3.0"
 dj-static = "0.0.6"
 gunicorn = "19.6.0"
 Unipath = "1.0"
-p"ython-decouple = "3"
-Pil"low = "3.3.0"
+python-decouple = "3"
+Pillow = "3.3.0"
 Markdown = "2.6.6"
 bleach = "1.4.3"
 psycopg2 = "2.6.1"
