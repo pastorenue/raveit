@@ -124,14 +124,32 @@ class BasePayloader:
         this is the getKey function that generates an encryption Key 
         for you by passing your Secret Key as a parameter.
         """
-        pass
+        raise NotImplementedError("This method needs to be implemented")
 
     def encryptData(self, key, plainText):
          """
          This is the encryption function that encrypts your 
          payload by passing the text and your encryption Key.
          """
-        pass
+        raise NotImplementedError("This method needs to be implemented")
+    
+    def initialize(self):
+        raise NotImplementedError("This method needs to be implemented")
+    
+    def verify_card_type(self):
+        raise NotImplementedError("This method needs to be implemented")
+    
+    def _local_card_validation(self):
+        raise NotImplementedError("This method needs to be implemented")
+    
+    def _foreign_card_validation(self):
+        raise NotImplementedError("This method needs to be implemented")
+    
+    def validate(self):
+        raise NotImplementedError("This method needs to be implemented")
+    
+    def verify(self):
+        raise NotImplementedError("This method needs to be implemented")
 
         
 class Card:
