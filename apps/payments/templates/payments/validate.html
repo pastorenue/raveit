@@ -1,0 +1,90 @@
+{% extends 'payments/list.html' %}
+{% load static dict_filters%}
+{% block title %}Pin Validation{% endblock %}
+{% block extracss %}
+<style>
+    .status{
+        border-radius: 30px;
+        padding: 4px 20px;
+        font-size: 13px;
+        color: #fff;
+    }
+    .search {
+        box-shadow: 5px 5px 10px 0 rgba(0,0,0,0.3);
+        transition: all .76s ease-in-out;
+        background: rgb(13, 120, 124);
+        color: #fff;
+        cursor: pointer;
+    }
+    .search:hover{
+        color: #fff;
+        box-shadow: 1px 1px 3px 0 rgba(0,0,0,0.3);
+    }
+    input[type=text], select{
+        height: 28px !important;
+        display: inline;
+        font-size: 14px;
+    }
+</style>
+{% endblock %}
+{% block inner-content %}
+<div id="class-page-content">
+    <div class="teachers table">
+        <div class="header">
+            <h1>Pin Validation</h1>
+            <div class="separator"></div>
+        </div> 
+    </div>
+
+    <div class="students table" style="margin-bottom: 5px;">
+        <div style="padding: 10px;">
+           <form action="" method="POST">{% csrf_token %}
+               <div class="row" style="border-top: none; margin-top: 20px;">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-5">
+                        <input name='token' id="id_token" type="text" class="form-control input-sm in-search" placeholder="Enter Your Pin">
+                    </div>
+                    <div class="col-md-2">
+                        <p class="status search" onclick="getDetails()"><i class="icons icons-sm icons-activate"></i> Validate</p>
+                    </div>  
+               </div>
+           </form>
+        </div>        
+    </div>
+    <div id="response_container" style="margin-top: 30px;">
+
+    </div>
+</div>
+{% endblock inner-content %}
+
+{% block extrajs %}
+<script>
+    let jsonURL = "{% url 'payments:json-validate' %}";
+    function generate(path) {
+        $.getJSON(path, function(data){
+           var newNode = document.createElement('div');  
+           var content = '<h3 style="text-align: center; margin-top: 10px; font-weight: 200;">Validation Result</h3>';
+           content += '<table class="table table-striped"><tbody>';
+            if(data['status_code'] == 1) {
+                content += '<tr><td>Full Name</td><td>'+data['name']+'</td></tr>';
+                content += '<tr><td>Reg Number</td><td>'+data['reg_number']+'</td></tr>';
+                content += '<tr><td>Class</td><td>'+data['class']+'</td></tr>';
+                content += '<tr><td>Pin</td><td style="font-size: 20px;">'+data['pin']+'</td></tr>';
+                content += '<tr><td>Message</td><td style="color: #109445;">'+data['message']+'</td></tr>';
+            }else{
+                content += '<tr><td>Message</td><td style="text-align: center;">'+data['message']+'</td></tr>';
+            }
+            content += '</tbody><table></div>';
+            newNode.innerHTML = content;
+           var container = document.getElementById('response_container');
+           container.innerHTML = content;
+        })
+    }
+
+    function getDetails(){
+        var token = $('#id_token').val();
+        var path = jsonURL+'?token='+token;
+        generate(path);
+    }
+</script>
+{% endblock %}

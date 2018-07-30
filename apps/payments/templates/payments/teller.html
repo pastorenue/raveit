@@ -1,0 +1,99 @@
+{% extends 'payments/list.html' %}
+{% load static humanize%}
+{% block title %}New Pin{% endblock %}
+{% block extracss %}
+<style>
+    .status{
+        border-radius: 30px;
+        padding: 4px 20px;
+        font-size: 14px;
+        color: #fff;
+    }
+    .search {
+        box-shadow: 5px 5px 10px 0 rgba(0,0,0,0.3);
+        transition: all .76s ease-in-out;
+        background: rgb(13, 120, 124);
+        color: #fff;
+        cursor: pointer;
+    }
+    .search:hover{
+        color: #fff;
+        box-shadow: 1px 1px 3px 0 rgba(0,0,0,0.3);
+    }
+    input[type=text], select, input[type=date]{
+        height: 29px !important;
+        display: inline;
+        font-size: 13px;
+    }
+    .tok{
+        position: absolute; 
+        top: 6px; 
+        left: 22px; 
+        font-size: 13px; 
+        font-weight: 600;
+        color: rgb(13, 120, 124);
+    }
+</style>
+{% endblock %}
+{% block inner-content %}
+<div id="class-page-content">
+    <div class="teachers table">
+        <div class="header">
+            <h1>Bank Teller Payment</h1>
+            <div class="separator"></div>
+        </div> 
+    </div>
+
+    <div class="students table" style="margin-bottom: 5px;">
+        <div style="padding: 10px;">
+            <div class="row" style="border-top: none; margin-top: 20px;">
+                <div class="col-md-3">
+                    <label>Application ID:</label>
+                    <input type="text" class="form-control input-sm in-search" value="{{token_app.application_id}}" disabled="disabled">
+                </div>
+                <div class="col-md-3">
+                    <label >Payment ID:</label>
+                    <input type="text" value="{{token_app.payment_id}}" class="form-control in-search" disabled="disabled">
+                </div>   
+                <div class="col-md-3">
+                    <label>Payment Method:</label>
+                    <input type="text" class="from-control input-sm in-search" value="{{config.payment_method}}" disabled="disabled">
+                </div>
+                <div class="col-md-3">
+                    <label>Application Date:</label>
+                    <input type="text" class="form-control input-sm in-search" value="{{token_app.date_created}}" disabled="disabled">
+                </div>  
+            </div>
+            <hr>
+           <form id="frm" action="" method="POST">{% csrf_token %}
+               <div class="row" style="border-top: none;">
+                    {% for field in form %}
+                    {% if field.html_name == 'teller_number' %}
+                    <div class="col-md-4">
+                        <label for="{{field.id_for_label}}">Teller Number:</label>
+                        <input name='{{field.html_name}}' id="{{field.id_for_label}}" type="text" class="form-control input-sm in-search" placeholder="Enter Your Teller Number">
+                    </div>
+                    {% else %}
+                    <div class="col-md-4">
+                        <label for="{{field.id_for_label}}">Date Of Payment:</label>
+                        <input name='{{field.html_name}}' id="{{field.id_for_label}}" type="date" class="form-control input-sm in-search">
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    <div class="col-md-3" style="padding-top: 25px;">
+                        <p class="status search" onclick="processPay()">Process Payment</p>
+                    </div>  
+               </div>
+           </form>
+        </div>        
+    </div>
+</div>
+{% endblock inner-content %}
+
+{% block extrajs %}
+<script>
+    function processPay() {
+        $("#frm").submit();
+    }
+</script>
+{% endblock %}

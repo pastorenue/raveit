@@ -1,0 +1,49 @@
+As a technical hero at Flutterwave, we would like you to:
+
+
+
+Create a concept or solution that requires payments.
+
+Clearly articulate (on document) the use case of rave on your product.
+
+Integrate rave’s APIs to help you do any of the following across your products:
+
+
+Collect payments across multiple payment channels and currencies e.g. card, account, QR code.
+
+Make transfers to vendors, customer etc.
+
+Collect payments on behalf of multiple merchants using sub account APIs
+
+Give rewards or help customers buy airtime on any platform.
+
+Help customers pay on a recurring plan for your awesome service using our recurrent APIs.
+
+Provide secure user KYC using our BVN APIs.
+
+This would involve you creating an interface where your solution can be accessed and a backend to handle your payment integration and business logic.
+
+Write unit tests for your payment integration API, your unit test would help make sure that the rave APIs you integrated are achieving what is expected of them.
+
+Host your application on any cloud service e.g Heroku, Azure, Google cloud etc.
+
+Create a GitHub repo and upload your code base. As a tip create a readme instruction on what anybody needs to do to use the repo including a link to the hosted solution.
+
+
+
+Duration:
+The test submission closes by 11:59 PM  2nd of August.
+
+
+
+Resources
+Sign up on https://ravesandbox.flutterwave.com for a test account, you would complete the integration using rave’s test credentials. Test credentials allow you to mock our API flows and get sample responses without using real payment instruments like your real bank card.
+
+Visit our API documentation (https://flutterwavedevelopers.readme.io/v2.0/docs/getting-started) You would be using our Direct APIs for all use cases i.e. you are not allowed to use the rave inline Javascript method or use the solution from the dashboard to complete your challenge.
+
+Set up a hosting account on any cloud service.
+
+
+
+Submission
+Submit your use case document and GitHub repo by clicking on this link.

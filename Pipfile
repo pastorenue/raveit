@@ -16,6 +16,8 @@ psycopg2 = "*"
 whitenoise = "*"
 Django = "*"
 sorl-thumbnail = "*"
+requests = "*"
+webbrowser = "*"
 
 [dev-packages] # Here goes your package requirements for developing the application and its versions (which packaes you will use when developing the application)
 pylint = "*"

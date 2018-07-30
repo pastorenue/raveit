@@ -1,0 +1,58 @@
+{% extends 'payments/list.html' %}
+{% load static dict_filters%}
+{% block title %}Generate Token{% endblock %}
+{% block extracss %}
+<style>
+    
+</style>
+{% endblock %}
+{% block inner-content %}
+<div id="class-page-content">
+    <div class="teachers table">
+        <div class="header">
+            <h1>Student Pin Generator</h1>
+            <div class="separator"></div>
+        </div> 
+    </div>
+
+    <div class="students table" style="margin-bottom: 5px;">
+        <div style="padding: 10px;">
+           <form action="" method="POST">{% csrf_token %}
+               <p style="text-align: center;"><strong>NOTE:</strong> You can only generate tokens for the specified year on the school's token acquired from SANI</p>
+                <hr>
+                <div class="form-group">
+                    <label for="">School Token</label>
+                    <input name='token' type="text" class="form-control input-sm in-search" placeholder="Enter school token for this session">
+                </div>
+                <div class="form-group">
+                    <label for="id_year">Year</label>
+                    <select name="year" id="id_year" class="form-control input-sm in-search">
+                        <option value="all">---Select Year---</option>
+                        {% for year in years %}
+                        <option value="{{year}}">{{year}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="id_year">Term</label>
+                    <select name="term" id="id_term" class="form-control input-sm in-search">
+                        <option value="all">---Select Term---</option>
+                        <option value="1">First Term</option>
+                        <option value="2">Second Term</option>
+                        <option value="3">Third Term</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-main" type="submit">Generate</button>
+                </div>
+           </form>
+        </div>        
+    </div>
+</div>
+{% endblock inner-content %}
+
+{% block extrajs %}
+<script>
+	$('#id_student').select2();
+</script>
+{% endblock %}
