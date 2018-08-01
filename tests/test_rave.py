@@ -80,8 +80,8 @@ class TransactionTest(TestCase):
         encrypted_data = self.tx.encrypt_data(self.payloader)
         self.assertEqual(encrypted_data['alg'], "3DES-24")
     
-    def test_initialize(self):
-        response = self.tx.initialize(self.payloader)
-        self.assertEqual(response, 'PIN')
+    # def test_initialize(self):
+    #     response = self.tx.initialize(self.payloader)
+    #     self.assertEqual(response, 'PIN')
 
 
