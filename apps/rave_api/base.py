@@ -1,11 +1,7 @@
 import os
 from rave_api.errors import MissingAuthorizationKeyError, InvalidDataError, InvalidCardTypeError
-import requests
+from django.contrib.auth.models import User
 import random
-import base64
-from Crypto.Cipher import DES3
-import hashlib
-
 try: 
     import json
 except:
@@ -50,14 +46,14 @@ class BaseRaveAPI(object):
         """
         return self._MERCHANT_SECRET_KEY
 
-    def _set_payload(self, data_payload):
+    def _get_payload(self, data_payload):
         """set the payload for the rave transaction
         
         ARGS:
-            OBJECT:data_payload = instance of an object with the various 
+            OBJECT:data_payload = instance of BasePayloader with the various 
             fields for the rave parameter
         """
-        pass
+        return data_payload.json_payload()
    
     def _headers(self):
         """Returns a simple header that will be added to the request payload"""
@@ -67,8 +63,41 @@ class BaseRaveAPI(object):
             "Merchant": "Raveit v1.0"
         }
     
-    def _handle_request(self, method, url, data=None):
-        pass
+    def _handle_request(self, method, url, encrypted_payload=None):
+        """Handles all requests: GET, POST, PUT, DELETE etc"""
+        raise NotImplementedError("This method needs to be implemented")
+
+    def _get_encrypt_key(self):
+        """
+        this is the getKey function that generates an encryption Key 
+        for you by passing your Secret Key as a parameter.
+        """
+        raise NotImplementedError("This method needs to be implemented")
+
+    def encrypt_data(self, key, plainText):
+         """
+         This is the encryption function that encrypts your 
+         payload by passing the text and your encryption Key.
+         """
+         raise NotImplementedError("This method needs to be implemented")
+    
+    def initialize(self):
+        raise NotImplementedError("This method needs to be implemented")
+    
+    def verify_card_type(self):
+        raise NotImplementedError("This method needs to be implemented")
+    
+    def _local_card_validation(self):
+        raise NotImplementedError("This method needs to be implemented")
+    
+    def _foreign_card_validation(self):
+        raise NotImplementedError("This method needs to be implemented")
+    
+    def validate(self):
+        raise NotImplementedError("This method needs to be implemented")
+    
+    def verify(self):
+        raise NotImplementedError("This method needs to be implemented")
     
 
 class BasePayloader:
@@ -90,14 +119,18 @@ class BasePayloader:
         self.cvv = card.get_cvv()
         self.expirymonth, self.expiryyear = card.get_expiration_details()
     
-    def _set_more_payload(self, **kwargs):
-        self.country = kwargs.pop('country') 
-        self.txRef = self._get_transaction_reference()
+    def update_payload(self, **kwargs):
+        """Adding optional data fields to the payload"""
+        existing_payload = self.__dict__
+        new_payload = existing_payload.update(kwargs)
 
     def _to_json(self):
         """convert this object to a json representation for easy processing 
         """
         return json.dumps(self.__dict__)
+    
+    def json_payload(self):
+        return self._to_json()
     
     def _decode_json(self):
         return json.loads(self._to_json())
@@ -118,38 +151,6 @@ class BasePayloader:
             token += key_list[random.randint(1,len(key_list)-1)]
         return token
     
-  
-    def getKey(self):
-        """
-        this is the getKey function that generates an encryption Key 
-        for you by passing your Secret Key as a parameter.
-        """
-        raise NotImplementedError("This method needs to be implemented")
-
-    def encryptData(self, key, plainText):
-         """
-         This is the encryption function that encrypts your 
-         payload by passing the text and your encryption Key.
-         """
-        raise NotImplementedError("This method needs to be implemented")
-    
-    def initialize(self):
-        raise NotImplementedError("This method needs to be implemented")
-    
-    def verify_card_type(self):
-        raise NotImplementedError("This method needs to be implemented")
-    
-    def _local_card_validation(self):
-        raise NotImplementedError("This method needs to be implemented")
-    
-    def _foreign_card_validation(self):
-        raise NotImplementedError("This method needs to be implemented")
-    
-    def validate(self):
-        raise NotImplementedError("This method needs to be implemented")
-    
-    def verify(self):
-        raise NotImplementedError("This method needs to be implemented")
 
         
 class Card:

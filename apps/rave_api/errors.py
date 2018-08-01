@@ -15,5 +15,6 @@ class InvalidCardTypeError(RaveBaseError):
     """The card type entered could not be processed"""
     pass
 
-class InvalidDataError(RaveBaseError):
-    """Data not valid"""
+class RaveAPIError(RaveBaseError):
+    """The card type entered could not be processed"""
+    pass
