@@ -18,7 +18,7 @@ Django = "*"
 sorl-thumbnail = "*"
 requests = "*"
 webbrowser = "*"
-pycrypto = "2.6.1"
+pycryptodome = "*"
 
 [dev-packages] # Here goes your package requirements for developing the application and its versions (which packaes you will use when developing the application)
 pylint = "*"
