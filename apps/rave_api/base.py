@@ -59,8 +59,6 @@ class BaseRaveAPI(object):
         """Returns a simple header that will be added to the request payload"""
         return {
             "Content-Type": self._CONTENT_TYPE,
-            "Accept": "application/json",
-            "Merchant": "Raveit v1.0"
         }
     
     def _handle_request(self, method, url, encrypted_payload=None):
@@ -102,7 +100,7 @@ class BaseRaveAPI(object):
 
 class BasePayloader:
 
-    def __init__(self, amount, user, card, PBFPubKey, **kwargs):
+    def __init__(self, amount, user, card, PBFPubKey, ip_address, **kwargs):
         if not user and not isinstance(user, User):
             raise InvalidDataError("Customer needs to register before making purchase")
         if not card and not isinstance(card, Card):
@@ -112,9 +110,8 @@ class BasePayloader:
         self.firstname = user.first_name
         self.lastname = user.last_name
         self.amount = amount
-        self.IP = None
+        self.IP = ip_address
         self.email = user.email
-        self.phonenumber = None
         self.cardno = card.get_number()
         self.cvv = card.get_cvv()
         self.expirymonth, self.expiryyear = card.get_expiration_details()
