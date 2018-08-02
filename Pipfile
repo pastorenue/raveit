@@ -17,7 +17,6 @@ whitenoise = "*"
 Django = "*"
 sorl-thumbnail = "*"
 requests = "*"
-webbrowser = "*"
 pycryptodome = "*"
 
 [dev-packages] # Here goes your package requirements for developing the application and its versions (which packaes you will use when developing the application)
